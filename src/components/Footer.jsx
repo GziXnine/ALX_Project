@@ -73,7 +73,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <button
                   onClick={() => onNavigate("home")}
-                  className="text-muted-foreground hover:text-primary transition-colors text-left"
+                  className="text-muted-foreground hover:text-primary transition-colors text-left text-sm"
                 >
                   Home
                 </button>
@@ -81,7 +81,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <button
                   onClick={() => onNavigate("search")}
-                  className="text-muted-foreground hover:text-primary transition-colors text-left"
+                  className="text-muted-foreground hover:text-primary transition-colors text-left text-sm"
                 >
                   Recipes
                 </button>
@@ -89,7 +89,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <button
                   onClick={() => onNavigate("meal-planner")}
-                  className="text-muted-foreground hover:text-primary transition-colors text-left"
+                  className="text-muted-foreground hover:text-primary transition-colors text-left text-sm"
                 >
                   Meal Planner
                 </button>
@@ -97,7 +97,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <button
                   onClick={() => onNavigate("blog")}
-                  className="text-muted-foreground hover:text-primary transition-colors text-left"
+                  className="text-muted-foreground hover:text-primary transition-colors text-left text-sm"
                 >
                   Blog
                 </button>
@@ -105,7 +105,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <button
                   onClick={() => onNavigate("about")}
-                  className="text-muted-foreground hover:text-primary transition-colors text-left"
+                  className="text-muted-foreground hover:text-primary transition-colors text-left text-sm"
                 >
                   About
                 </button>
@@ -122,7 +122,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <button
                   onClick={() => onNavigate("contact")}
-                  className="text-muted-foreground hover:text-primary transition-colors text-left"
+                  className="text-muted-foreground hover:text-primary transition-colors text-left text-sm"
                 >
                   Contact Us
                 </button>
@@ -130,7 +130,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <a
                   href="#"
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
                   FAQ
                 </a>
@@ -138,7 +138,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <a
                   href="#"
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
                   Help Center
                 </a>
@@ -146,7 +146,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <a
                   href="#"
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
                   Privacy Policy
                 </a>
@@ -154,7 +154,7 @@ export function Footer({ onNavigate }) {
               <li>
                 <a
                   href="#"
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
                   Terms of Service
                 </a>
@@ -195,7 +195,15 @@ export function Footer({ onNavigate }) {
         <div className="border-t border-border/50 mt-12 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-muted-foreground text-sm">
-              © {currentYear} RecipeFinder. All rights reserved.
+              © {currentYear}{" "}
+              <a
+                href="https://www.linkedin.com/in/1ahmed-allam/"
+                className="hover:text-primary transition-colors"
+                target="_blank"
+              >
+                RecipeFinder
+              </a>
+              . All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-xs text-muted-foreground">
               <a href="#" className="hover:text-primary transition-colors">
