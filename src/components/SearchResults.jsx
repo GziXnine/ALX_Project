@@ -6,11 +6,16 @@ import { Input } from "./ui/input";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { RecipeCard } from "./RecipeCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 
 export function SearchResults({ searchQuery, onViewRecipe }) {
   const [currentQuery, setCurrentQuery] = useState(searchQuery);
+
+  // Sync currentQuery with searchQuery prop
+  useEffect(() => {
+    setCurrentQuery(searchQuery);
+  }, [searchQuery]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
@@ -67,7 +72,7 @@ export function SearchResults({ searchQuery, onViewRecipe }) {
       cookTime: "35 mins",
       servings: 8,
       rating: 4.8,
-      difficulty: "Easy",
+      difficulty: "Hard",
       description: "Rich, fudgy chocolate brownies",
     },
     {
@@ -106,7 +111,11 @@ export function SearchResults({ searchQuery, onViewRecipe }) {
       selectedCategory === "all" || recipe.category === selectedCategory;
     const matchesDifficulty =
       selectedDifficulty === "all" || recipe.difficulty === selectedDifficulty;
-    return matchesCategory && matchesDifficulty;
+    const matchesQuery =
+      !currentQuery ||
+      recipe.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
+      recipe.description.toLowerCase().includes(currentQuery.toLowerCase());
+    return matchesCategory && matchesDifficulty && matchesQuery;
   });
 
   return (

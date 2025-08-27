@@ -28,7 +28,7 @@ export function RecipeCard({
 
   return (
     <Card
-      className={`${sizeClasses[size]} overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1`}
+      className={`${sizeClasses[size]} h-full flex flex-col overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1`}
     >
       <div className="relative">
         <ImageWithFallback
@@ -65,7 +65,7 @@ export function RecipeCard({
         )}
       </div>
 
-      <div className="p-6">
+      <div className="px-6 pb-6">
         {/* Category & Trending */}
         <div className="flex items-center justify-between mb-3">
           <Badge
