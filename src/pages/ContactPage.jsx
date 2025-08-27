@@ -1,10 +1,10 @@
 /** @format */
 
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
 import { useState } from "react";
 
 export function ContactPage() {
@@ -29,7 +29,7 @@ export function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8">
+    <div className="min-h-screen bg-background py-20">
       <div className="container">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-4">
@@ -55,8 +55,8 @@ export function ContactPage() {
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-foreground">Email</h3>
-                    <p className="text-muted-foreground">
+                    <h4 className="font-medium text-foreground">Email</h4>
+                    <p className="font-small text-muted-foreground">
                       hello@recipefinder.com
                     </p>
                   </div>
@@ -67,8 +67,10 @@ export function ContactPage() {
                     <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-foreground">Phone</h3>
-                    <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                    <h4 className="font-medium text-foreground">Phone</h4>
+                    <p className="font-small text-muted-foreground">
+                      +1 (555) 123-4567
+                    </p>
                   </div>
                 </div>
 
@@ -77,8 +79,8 @@ export function ContactPage() {
                     <MapPin className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-foreground">Address</h3>
-                    <p className="text-muted-foreground">
+                    <h4 className="font-medium text-foreground">Address</h4>
+                    <p className="font-small text-muted-foreground">
                       123 Recipe Street
                       <br />
                       Food City, FC 12345

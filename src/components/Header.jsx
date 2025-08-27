@@ -1,19 +1,26 @@
 /** @format */
 
-import { useState } from "react";
-import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
-import { Button } from "./ui/button";
 import React from "react";
+import { useState } from "react";
+import { Menu, X, Sun, Moon, ChevronDown, Flower } from "lucide-react";
+import { Button } from "./ui/button";
 
 export function Header({
   currentPage = "home",
   onNavigate,
-  isDarkMode = false,
+  currentTheme = "light",
   onToggleTheme,
   onShowAIModal,
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [featuresDropdownOpen, setFeaturesDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState(currentTheme);
+
+  // Apply theme class to <body> when theme changes
+  React.useEffect(() => {
+    document.body.classList.remove("light", "dark", "floral");
+    document.body.classList.add(theme);
+  }, [theme]);
 
   const handleNavigation = (page) => {
     if (onNavigate) {
@@ -35,6 +42,46 @@ export function Header({
     { id: "blog", label: "Blog", page: "blog" },
     { id: "dashboard", label: "Dashboard", page: "dashboard" },
   ];
+
+  // Theme icon and tooltip logic
+  const getThemeIcon = () => {
+    switch (theme) {
+      case "light":
+        return <Sun className="w-4 h-4" />;
+      case "dark":
+        return <Moon className="w-4 h-4" />;
+      case "floral":
+        return <Flower className="w-4 h-4" />;
+      default:
+        return <Sun className="w-4 h-4" />;
+    }
+  };
+
+  const getThemeTooltip = () => {
+    switch (theme) {
+      case "light":
+        return "Switch to floral theme";
+      case "dark":
+        return "Switch to light theme";
+      case "floral":
+        return "Switch to dark theme";
+      default:
+        return "Switch theme";
+    }
+  };
+
+  // Cycle theme logic
+  const handleThemeToggle = () => {
+    let nextTheme;
+    if (theme === "light") nextTheme = "floral";
+    else if (theme === "floral") nextTheme = "dark";
+    else if (theme === "dark") nextTheme = "light";
+    else nextTheme = "light";
+    setTheme(nextTheme);
+    document.body.classList.remove("light", "dark", "floral");
+    document.body.classList.add(nextTheme);
+    if (onToggleTheme) onToggleTheme(nextTheme);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur-md shadow-sm">
@@ -123,17 +170,11 @@ export function Header({
             <Button
               variant="ghost"
               size="sm"
-              onClick={onToggleTheme}
+              onClick={handleThemeToggle}
               className="ml-2 p-2.5 rounded-xl hover:bg-accent/50 transition-all duration-200"
-              title={
-                isDarkMode ? "Switch to light mode" : "Switch to dark mode"
-              }
+              title={getThemeTooltip()}
             >
-              {isDarkMode ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
+              {getThemeIcon()}
             </Button>
           </nav>
 
@@ -142,14 +183,11 @@ export function Header({
             <Button
               variant="ghost"
               size="sm"
-              onClick={onToggleTheme}
+              onClick={handleThemeToggle}
               className="p-2.5 rounded-xl hover:bg-accent/50 transition-all duration-200"
+              title={getThemeTooltip()}
             >
-              {isDarkMode ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
+              {getThemeIcon()}
             </Button>
 
             <Button
@@ -208,6 +246,18 @@ export function Header({
                 >
                   ✨ AI Recipe Maker
                 </button>
+              </div>
+
+              <div className="pt-4 border-t border-border/50 mt-4">
+                <div className="px-4 py-2 flex items-center justify-between">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Theme
+                  </span>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground capitalize">
+                    {getThemeIcon()}
+                    <span>{theme}</span>
+                  </div>
+                </div>
               </div>
             </nav>
           </div>

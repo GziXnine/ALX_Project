@@ -9,25 +9,29 @@ import {
   Award,
   TrendingUp,
 } from "lucide-react";
-import { Card } from "./ui/card";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { RecipeCard } from "./RecipeCard";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { Card } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
+import { RecipeCard } from "../components/RecipeCard";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import React from "react";
 
 export function UserDashboard({ onViewRecipe }) {
   // Mock user data
   const user = {
-    name: "John Smith",
-    email: "john@example.com",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBwcm9mZXNzaW9uYWx8ZW58MXx8fHwxNzU1MDM1Mjk2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    name: "Ahmed Allam",
+    email: "ahmed@mans.com",
+    avatar: "https://avatars.githubusercontent.com/u/60698204?v=4",
     memberSince: "2023-03-15",
-    totalRecipes: 24,
-    favoriteRecipes: 42,
-    mealsCooked: 156,
+    totalRecipes: 22,
+    favoriteRecipes: 12,
+    mealsCooked: 15,
   };
 
   const savedRecipes = [

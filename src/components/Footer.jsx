@@ -15,7 +15,7 @@ export function Footer({ onNavigate }) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-br from-muted/50 to-background border-t border-border/50 mt-auto">
+    <footer className="bg-gradient-to-br from-muted/50 to-background border-t border-border/50 mt-auto pt-13 pb-6">
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}

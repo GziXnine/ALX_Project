@@ -10,13 +10,12 @@ import {
   Heart,
   TrendingUp,
 } from "lucide-react";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
-import { Input } from "./ui/input";
-import { RecipeCard } from "./RecipeCard";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { RecipeCard } from "../components/RecipeCard";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useState } from "react";
-import React from "react";
 
 export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
   const [searchQuery, setSearchQuery] = useState("");

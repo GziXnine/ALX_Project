@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
-import { LandingPage } from "./components/LandingPage";
+import { LandingPage } from "./pages/LandingPage";
 import { SearchResults } from "./components/SearchResults";
-import { RecipeDetails } from "./components/RecipeDetails";
-import { AboutPage } from "./components/AboutPage";
-import { BlogPage } from "./components/BlogPage";
-import { BlogDetail } from "./components/BlogDetail";
-import { MealPlanner } from "./components/MealPlanner";
-import { UserDashboard } from "./components/UserDashboard";
-import { ContactPage } from "./components/ContactPage";
+import { RecipeDetails } from "./pages/RecipeDetails";
+import { AboutPage } from "./pages/AboutPage";
+import { BlogPage } from "./pages/BlogPage";
+import { BlogDetail } from "./pages/BlogDetail";
+import { MealPlanner } from "./pages/MealPlanner";
+import { UserDashboard } from "./pages/UserDashboard";
+import { ContactPage } from "./pages/ContactPage";
 import { Footer } from "./components/Footer";
 import AIRecipeModal from "./components/AIRecipeModal";
 
