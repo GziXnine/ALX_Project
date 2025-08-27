@@ -19,29 +19,19 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
   const [selectedBlogId, setSelectedBlogId] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark" || stored === "floral")
+      return stored;
+    return "light";
+  });
   const [showAIModal, setShowAIModal] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark");
-    } else {
-      setIsDarkMode(systemPrefersDark);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
+    document.body.classList.remove("light", "dark", "floral");
+    document.body.classList.add(theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -73,8 +63,14 @@ export default function App() {
     setCurrentPage("blog");
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+  // Cycle theme logic for Header
+  const handleThemeToggle = () => {
+    let nextTheme;
+    if (theme === "light") nextTheme = "floral";
+    else if (theme === "floral") nextTheme = "dark";
+    else if (theme === "dark") nextTheme = "light";
+    else nextTheme = "light";
+    setTheme(nextTheme);
   };
 
   const renderContent = () => {
@@ -124,8 +120,8 @@ export default function App() {
         onSearch={handleSearch}
         currentPage={currentPage}
         onNavigate={handleNavigation}
-        isDarkMode={isDarkMode}
-        onToggleTheme={toggleTheme}
+        currentTheme={theme}
+        onToggleTheme={handleThemeToggle}
         onShowAIModal={() => setShowAIModal(true)}
       />
       <main className="flex-1">{renderContent()}</main>

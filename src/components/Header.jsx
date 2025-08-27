@@ -14,12 +14,19 @@ export function Header({
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [featuresDropdownOpen, setFeaturesDropdownOpen] = useState(false);
-  const [theme, setTheme] = useState(currentTheme);
+  // Load theme from localStorage or use prop
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark" || stored === "floral")
+      return stored;
+    return "light";
+  });
 
   // Apply theme class to <body> when theme changes
   React.useEffect(() => {
     document.body.classList.remove("light", "dark", "floral");
     document.body.classList.add(theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const handleNavigation = (page) => {
