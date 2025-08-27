@@ -397,7 +397,7 @@ export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
                 size="lg"
                 variant="outline"
                 onClick={onShowAIModal}
-                className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-8 py-4 text-lg font-semibold min-w-48"
+                className="border-2 border-primary-foreground text-foreground hover:bg-primary-foreground hover:text-primary px-8 py-4 text-lg font-semibold min-w-48"
               >
                 Try AI Recipe Maker
               </Button>
