@@ -2,13 +2,14 @@
 
 "use client";
 
-import Select from "react-select";
+import * as React from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "./utils";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
-// Use react-select as the main Select component
-
-// Remove duplicate Select declaration
+function Select(props) {
+  return <SelectPrimitive.Root data-slot="select" {...props} />;
+}
 
 function SelectGroup(props) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />;

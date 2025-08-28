@@ -297,10 +297,10 @@ export function RecipeSubmission({ onNavigate }) {
             </CardHeader>
             <CardContent>
               <div
-                className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
+                className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors bg-white dark:bg-background ${
                   dragActive
                     ? "border-primary bg-primary/5"
-                    : "border-border hover:border-primary/50"
+                    : "border-border hover:border-primary/50 hover:bg-primary/10"
                 }`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
