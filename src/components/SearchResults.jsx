@@ -141,7 +141,7 @@ export function SearchResults({ searchQuery, onViewRecipe }) {
                 placeholder="Search recipes..."
                 value={currentQuery}
                 onChange={(e) => setCurrentQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 border border-gray-300 bg-white dark:bg-card dark:border-border focus:border-primary focus:ring-0 focus-visible:ring-0"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             </div>
