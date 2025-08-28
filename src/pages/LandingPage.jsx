@@ -104,7 +104,7 @@ export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-muted via-background to-muted py-20 lg:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-muted via-background to-muted py-20 lg:py-32 overflow-hidden min-h-screen">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
