@@ -20,101 +20,60 @@ export function SearchResults({ searchQuery, onViewRecipe }) {
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
 
-  // Mock search results
-  const mockRecipes = [
-    {
-      id: "1",
-      title: "Classic Chicken Parmesan",
-      category: "Main Course",
-      cuisine: "Italian",
-      image:
-        "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlja2VuJTIwcGFybWVzYW58ZW58MXx8fHwxNzU1MDM1MjMwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "45 mins",
-      servings: 4,
-      rating: 4.7,
-      difficulty: "Medium",
-      description:
-        "Crispy breaded chicken with marinara sauce and melted cheese",
-    },
-    {
-      id: "2",
-      title: "Vegetable Stir Fry",
-      category: "Vegetarian",
-      cuisine: "Asian",
-      image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZWdhbiUyMGhlYWx0aHklMjBmb29kJTIwY2F0ZWdvcnl8ZW58MXx8fHwxNzU1MDM0OTc5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "15 mins",
-      servings: 3,
-      rating: 4.5,
-      difficulty: "Easy",
-      description: "Fresh vegetables tossed in savory sauce",
-    },
-    {
-      id: "3",
-      title: "Beef Tacos",
-      category: "Main Course",
-      cuisine: "Mexican",
-      image:
-        "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0YWNvcyUyMGJlZWZ8ZW58MXx8fHwxNzU1MDM1MjMxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "20 mins",
-      servings: 4,
-      rating: 4.6,
-      difficulty: "Easy",
-      description: "Seasoned ground beef in soft tortillas with fresh toppings",
-    },
-    {
-      id: "4",
-      title: "Chocolate Brownies",
-      category: "Dessert",
-      cuisine: "American",
-      image:
-        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBicm93bmllc3xlbnwxfHx8fDE3NTUwMzUyMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "35 mins",
-      servings: 8,
-      rating: 4.8,
-      difficulty: "Hard",
-      description: "Rich, fudgy chocolate brownies",
-    },
-    {
-      id: "5",
-      title: "Caesar Salad",
-      category: "Salad",
-      cuisine: "Italian",
-      image:
-        "https://images.unsplash.com/photo-1546793665-c74683f339c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYWVzYXIlMjBzYWxhZHxlbnwxfHx8fDE3NTUwMzUyMzN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "10 mins",
-      servings: 2,
-      rating: 4.4,
-      difficulty: "Easy",
-      description: "Classic Caesar salad with crispy croutons and parmesan",
-    },
-    {
-      id: "6",
-      title: "Grilled Salmon",
-      category: "Main Course",
-      cuisine: "Mediterranean",
-      image:
-        "https://images.unsplash.com/photo-1467003909585-2f8a72700288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmlsbGVkJTIwc2FsbW9ufGVufDF8fHx8MTc1NTAzNTIzM3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "25 mins",
-      servings: 4,
-      rating: 4.9,
-      difficulty: "Medium",
-      description: "Perfectly grilled salmon with herbs and lemon",
-    },
-  ];
+  // Fetch recipes from TheMealDB API
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const categories = ["all", "Main Course", "Vegetarian", "Dessert", "Salad"];
+  useEffect(() => {
+    setLoading(true);
+    setError("");
+    let url;
+    if (selectedCategory !== "all") {
+      url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
+    } else if (currentQuery) {
+      url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${currentQuery}`;
+    } else {
+      url = `https://www.themealdb.com/api/json/v1/1/search.php?s=`;
+    }
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.meals) {
+          setRecipes(data.meals);
+        } else {
+          setRecipes([]);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to fetch recipes.");
+        setLoading(false);
+      });
+  }, [currentQuery, selectedCategory]);
+
+  // Fetch categories from TheMealDB API
+  const [categories, setCategories] = useState(["all"]);
+  useEffect(() => {
+    fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
+      .then((res) => res.json())
+      .then((data) => {
+        const cats = (data.meals || []).map((cat) => cat.strCategory);
+        setCategories(["all", ...cats]);
+      });
+  }, []);
   const difficulties = ["all", "Easy", "Medium", "Hard"];
 
-  const filteredRecipes = mockRecipes.filter((recipe) => {
+  // Filter recipes by category and difficulty (mocked, since API doesn't provide these fields)
+  const filteredRecipes = recipes.filter((recipe) => {
     const matchesCategory =
-      selectedCategory === "all" || recipe.category === selectedCategory;
-    const matchesDifficulty =
-      selectedDifficulty === "all" || recipe.difficulty === selectedDifficulty;
+      selectedCategory === "all" || recipe.strCategory === selectedCategory;
+    // Difficulty is not in API, so always true
+    const matchesDifficulty = true;
     const matchesQuery =
       !currentQuery ||
-      recipe.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
-      recipe.description.toLowerCase().includes(currentQuery.toLowerCase());
+      (recipe.strMeal &&
+        recipe.strMeal.toLowerCase().includes(currentQuery.toLowerCase()));
     return matchesCategory && matchesDifficulty && matchesQuery;
   });
 
@@ -160,7 +119,7 @@ export function SearchResults({ searchQuery, onViewRecipe }) {
           {/* Filters */}
           {showFilters && (
             <Card className="p-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid gap-4">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Category
@@ -177,27 +136,6 @@ export function SearchResults({ searchQuery, onViewRecipe }) {
                         }`}
                       >
                         {category === "all" ? "All Categories" : category}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Difficulty
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {difficulties.map((difficulty) => (
-                      <button
-                        key={difficulty}
-                        onClick={() => setSelectedDifficulty(difficulty)}
-                        className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                          selectedDifficulty === difficulty
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted text-muted-foreground hover:bg-accent"
-                        }`}
-                      >
-                        {difficulty === "all" ? "All Levels" : difficulty}
                       </button>
                     ))}
                   </div>
@@ -244,11 +182,19 @@ export function SearchResults({ searchQuery, onViewRecipe }) {
         )}
 
         {/* Results Grid */}
-        {filteredRecipes.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {loading ? (
+          <div className="text-center py-16">
+            <p className="text-lg text-muted-foreground">Loading recipes...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-16">
+            <p className="text-lg text-destructive">{error}</p>
+          </div>
+        ) : filteredRecipes.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
             {filteredRecipes.map((recipe) => (
               <RecipeCard
-                key={recipe.id}
+                key={recipe.idMeal}
                 recipe={recipe}
                 onViewRecipe={onViewRecipe}
                 size="medium"

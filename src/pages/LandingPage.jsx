@@ -138,48 +138,19 @@ export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
   }, []);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const featuredRecipes = [
-    {
-      id: "1",
-      title: "Classic Spaghetti Carbonara",
-      category: "Main Course",
-      cuisine: "Italian",
-      image:
-        "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcGFnaGV0dGklMjBjYXJib25hcmF8ZW58MXx8fHwxNzU1MDM1MTI3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "20 mins",
-      servings: 4,
-      rating: 4.8,
-      difficulty: "Medium",
-      description:
-        "Traditional Italian pasta dish with eggs, cheese, and pancetta",
-    },
-    {
-      id: "2",
-      title: "Grilled Chicken Salad",
-      category: "Healthy",
-      cuisine: "Mediterranean",
-      image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZWdhbiUyMGhlYWx0aHklMjBmb29kJTIwY2F0ZWdvcnl8ZW58MXx8fHwxNzU1MDM0OTc5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "15 mins",
-      servings: 2,
-      rating: 4.6,
-      difficulty: "Easy",
-      description: "Fresh mixed greens with grilled chicken and vegetables",
-    },
-    {
-      id: "3",
-      title: "Chocolate Chip Cookies",
-      category: "Dessert",
-      cuisine: "American",
-      image:
-        "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBjaGlwJTIwY29va2llc3xlbnwxfHx8fDE3NTUwMzUxMjh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "25 mins",
-      servings: 12,
-      rating: 4.9,
-      difficulty: "Easy",
-      description: "Classic homemade chocolate chip cookies",
-    },
-  ];
+  // Fetch 6 featured recipes from TheMealDB API
+  const [featuredRecipes, setFeaturedRecipes] = useState([]);
+  useEffect(() => {
+    fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.meals) {
+          setFeaturedRecipes(data.meals.slice(0, 6));
+        } else {
+          setFeaturedRecipes([]);
+        }
+      });
+  }, []);
 
   const categories = [
     {
@@ -337,7 +308,7 @@ export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
             {featuredRecipes.map((recipe, index) => (
               <div
                 key={recipe.id}

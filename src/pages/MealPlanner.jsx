@@ -49,35 +49,33 @@ export function MealPlanner({ onViewRecipe }) {
     },
   ];
 
-  const sampleRecipes = [
-    {
-      id: "1",
-      title: "Avocado Toast with Eggs",
-      image:
-        "https://images.unsplash.com/photo-1626026671041-ee71c3bbf735?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmVha2Zhc3QlMjBmb29kJTIwY2F0ZWdvcnl8ZW58MXx8fHwxNzU1MDM0OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "10 mins",
-      servings: 1,
-      mealType: "breakfast",
-    },
-    {
-      id: "2",
-      title: "Mediterranean Quinoa Bowl",
-      image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZWdhbiUyMGhlYWx0aHklMjBmb29kJTIwY2F0ZWdvcnl8ZW58MXx8fHwxNzU1MDM0OTc5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "15 mins",
-      servings: 2,
-      mealType: "lunch",
-    },
-    {
-      id: "3",
-      title: "Grilled Salmon with Vegetables",
-      image:
-        "https://images.unsplash.com/photo-1673081760594-828ed9f8d0f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaW5uZXIlMjBmb29kJTIwY2F0ZWdvcnl8ZW58MXx8fHwxNzU1MDM0OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "25 mins",
-      servings: 4,
-      mealType: "dinner",
-    },
-  ];
+  const [recipesByMealType, setRecipesByMealType] = useState({});
+  const [loadingRecipes, setLoadingRecipes] = useState(false);
+
+  React.useEffect(() => {
+    setLoadingRecipes(true);
+    Promise.all(
+      mealTypes.map((mealType) =>
+        fetch(
+          `https://www.themealdb.com/api/json/v1/1/filter.php?c=${mealType.name}`
+        )
+          .then((res) => res.json())
+          .then((data) => ({ [mealType.id]: data.meals || [] }))
+      )
+    )
+      .then((results) => {
+        const combined = results.reduce(
+          (acc, curr) => ({ ...acc, ...curr }),
+          {}
+        );
+        setRecipesByMealType(combined);
+        setLoadingRecipes(false);
+      })
+      .catch(() => {
+        setRecipesByMealType({});
+        setLoadingRecipes(false);
+      });
+  }, [mealTypes]);
 
   const getWeekDays = () => {
     const startOfWeek = new Date(currentDate);

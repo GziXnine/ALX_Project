@@ -1749,6 +1749,10 @@
     gap: calc(var(--spacing) * 8);
   }
 
+  .lg\:gap-5 {
+    gap: calc(var(--spacing) * 5);
+  }
+
   .lg\:gap-10 {
     gap: calc(var(--spacing) * 10);
   }
