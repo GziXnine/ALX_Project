@@ -47,6 +47,11 @@ export function Header({
   const featureItems = [
     { id: "meal-planner", label: "Meal Planner", page: "meal-planner" },
     { id: "blog", label: "Blog", page: "blog" },
+    {
+      id: "recipe-submission",
+      label: "Submit Recipe",
+      page: "recipe-submission",
+    },
     { id: "dashboard", label: "Dashboard", page: "dashboard" },
   ];
 

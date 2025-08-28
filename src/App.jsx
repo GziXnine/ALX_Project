@@ -13,6 +13,7 @@ import { UserDashboard } from "./pages/UserDashboard";
 import { ContactPage } from "./pages/ContactPage";
 import { Footer } from "./components/Footer";
 import AIRecipeModal from "./components/AIRecipeModal";
+import { RecipeSubmission } from "./pages/RecipeSubmission";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -109,6 +110,8 @@ export default function App() {
         return <UserDashboard onViewRecipe={handleViewRecipe} />;
       case "contact":
         return <ContactPage />;
+      case "recipe-submission":
+        return <RecipeSubmission onNavigate={handleNavigation} />;
       default:
         return null;
     }
