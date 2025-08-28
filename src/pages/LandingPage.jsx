@@ -9,6 +9,11 @@ import {
   BookOpen,
   Heart,
   TrendingUp,
+  Lightbulb,
+  Award,
+  Crown,
+  Trophy,
+  MessageCircle,
 } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "../components/button";
@@ -19,6 +24,81 @@ import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useState } from "react";
 
 export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
+    // Cooking Tips data
+    const cookingTips = [
+      {
+        icon: <ChefHat className="w-6 h-6" />,
+        title: 'Sharp Knives',
+        tip: 'Keep your knives sharp for safer and more efficient cooking. A sharp knife is a chef\'s best friend!'
+      },
+      {
+        icon: <Clock className="w-6 h-6" />,
+        title: 'Mise en Place',
+        tip: 'Prepare all ingredients before you start cooking. This French technique will make you more organized.'
+      },
+      {
+        icon: <Star className="w-6 h-6" />,
+        title: 'Taste as You Go',
+        tip: 'Always taste your food while cooking. Adjust seasonings gradually for the perfect flavor balance.'
+      },
+      {
+        icon: <Lightbulb className="w-6 h-6" />,
+        title: 'Rest Your Meat',
+        tip: 'Let meat rest after cooking to redistribute juices. This ensures tender and flavorful results.'
+      },
+      {
+        icon: <Heart className="w-6 h-6" />,
+        title: 'High Heat Searing',
+        tip: 'Use high heat to sear proteins for better color and flavor. Then finish at lower temperature.'
+      },
+      {
+        icon: <Award className="w-6 h-6" />,
+        title: 'Quality Ingredients',
+        tip: 'Use the best ingredients you can afford. Fresh, quality ingredients make a huge difference.'
+      }
+    ];
+
+    // Community Highlights data
+    const communityHighlights = [
+      {
+        type: 'chef-of-month',
+        title: 'Chef of the Month',
+        name: 'Isabella Rodriguez',
+        avatar: 'IR',
+        achievement: 'Most Liked Recipes (47)',
+        recipes: 23,
+        followers: 1247,
+        badge: <Crown className="w-5 h-5 text-yellow-500" />
+      },
+      {
+        type: 'trending-recipe',
+        title: 'Trending Recipe',
+        name: 'Spicy Korean Tacos',
+        author: 'Chef Kim',
+        likes: 892,
+        comments: 156,
+        shares: 89,
+        badge: <TrendingUp className="w-5 h-5 text-primary" />
+      },
+      {
+        type: 'community-challenge',
+        title: 'Weekly Challenge',
+        name: '15-Minute Meals',
+        participants: 324,
+        submissions: 89,
+        timeLeft: '3 days left',
+        badge: <Trophy className="w-5 h-5 text-orange-500" />
+      },
+      {
+        type: 'recent-review',
+        title: 'Latest Review',
+        reviewer: 'Food Lover Jake',
+        recipe: 'Grandma\'s Apple Pie',
+        rating: 5,
+        comment: 'Absolutely perfect! Just like my grandmother used to make...',
+        badge: <MessageCircle className="w-5 h-5 text-green-500" />
+      }
+    ];
   // Animated stats
   const stats = [
     { label: "Recipes", value: 22343, icon: BookOpen },
@@ -56,45 +136,77 @@ export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
 
   const featuredRecipes = [
     {
-      id: "1",
-      title: "Classic Spaghetti Carbonara",
-      category: "Main Course",
-      cuisine: "Italian",
-      image:
-        "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcGFnaGV0dGklMjBjYXJib25hcmF8ZW58MXx8fHwxNzU1MDM1MTI3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "20 mins",
-      servings: 4,
-      rating: 4.8,
-      difficulty: "Medium",
-      description:
-        "Traditional Italian pasta dish with eggs, cheese, and pancetta",
-    },
-    {
-      id: "2",
-      title: "Grilled Chicken Salad",
-      category: "Healthy",
-      cuisine: "Mediterranean",
-      image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZWdhbiUyMGhlYWx0aHklMjBmb29kJTIwY2F0ZWdvcnl8ZW58MXx8fHwxNzU1MDM0OTc5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "15 mins",
-      servings: 2,
-      rating: 4.6,
-      difficulty: "Easy",
-      description: "Fresh mixed greens with grilled chicken and vegetables",
-    },
-    {
-      id: "3",
-      title: "Chocolate Chip Cookies",
-      category: "Dessert",
-      cuisine: "American",
-      image:
-        "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBjaGlwJTIwY29va2llc3xlbnwxfHx8fDE3NTUwMzUxMjh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      cookTime: "25 mins",
-      servings: 12,
+      id: 'truffle-pasta',
+      title: 'Truffle Mushroom Pasta',
+      chef: 'Chef Isabella',
       rating: 4.9,
-      difficulty: "Easy",
-      description: "Classic homemade chocolate chip cookies",
+      reviews: 324,
+      prepTime: '15 mins',
+      difficulty: 'Medium',
+      category: 'Italian',
+      trending: true,
+      image: 'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop'
     },
+    {
+      id: 'chocolate-cake',
+      title: 'Decadent Chocolate Cake',
+      chef: 'Baker Maria',
+      rating: 4.8,
+      reviews: 567,
+      prepTime: '45 mins',
+      difficulty: 'Hard',
+      category: 'Dessert',
+      award: true,
+      image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'
+    },
+    {
+      id: 'quinoa-salad',
+      title: 'Mediterranean Quinoa Salad',
+      chef: 'Chef David',
+      rating: 4.7,
+      reviews: 198,
+      prepTime: '10 mins',
+      difficulty: 'Easy',
+      category: 'Healthy',
+      healthy: true,
+      image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop'
+    },
+    {
+      id: 'grilled-salmon',
+      title: 'Herb-Crusted Salmon',
+      chef: 'Chef Sarah',
+      rating: 4.8,
+      reviews: 412,
+      prepTime: '25 mins',
+      difficulty: 'Medium',
+      category: 'Seafood',
+      premium: true,
+      image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop'
+    },
+    {
+      id: 'pizza-margherita',
+      title: 'Authentic Margherita Pizza',
+      chef: 'Chef Antonio',
+      rating: 4.9,
+      reviews: 289,
+      prepTime: '30 mins',
+      difficulty: 'Medium',
+      category: 'Italian',
+      classic: true,
+      image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop'
+    },
+    {
+      id: 'gourmet-burger',
+      title: 'Gourmet Beef Burger',
+      chef: 'Chef Mike',
+      rating: 4.6,
+      reviews: 445,
+      prepTime: '20 mins',
+      difficulty: 'Easy',
+      category: 'American',
+      popular: true,
+      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop'
+    }
   ];
 
   const categories = [
@@ -420,43 +532,134 @@ export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Button
                 size="lg"
-                variant="secondary"
-                onClick={() => onSearch("")}
-                className="bg-background text-foreground hover:bg-background/90 px-8 py-4 text-lg font-semibold min-w-48"
-              >
-                Browse All Recipes
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={onShowAIModal}
-                className="border-2 border-primary-foreground text-foreground hover:bg-primary-foreground hover:text-primary px-8 py-4 text-lg font-semibold min-w-48"
-              >
-                Try AI Recipe Maker
-              </Button>
-            </div>
+                {/* Cooking Tips & Tricks Section */}
+                <section className="section-padding bg-muted/30">
+                  <div className="container">
+                    <div className="text-center mb-12">
+                      <h2 className="text-3xl font-bold text-foreground mb-4">Cooking Tips & Tricks</h2>
+                      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                        Master the art of cooking with these professional tips from our expert chefs
+                      </p>
+                    </div>
 
-            {/* Trust Indicators */}
-            <div className="mt-16 pt-8 border-t border-primary-foreground/20">
-              <p className="text-sm opacity-80 mb-6">
-                Trusted by home cooks worldwide
-              </p>
-              <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-                {[
-                  "⭐ 4.9/5 Rating",
-                  "🔒 100% Safe",
-                  "📱 Mobile Friendly",
-                  "🌍 Global Community",
-                ].map((item) => (
-                  <div key={item} className="text-sm font-medium">
-                    {item}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {cookingTips.map((tip, index) => (
+                        <Card key={index} className="border-0 shadow-card hover:shadow-card-hover transition-all duration-300 bg-card">
+                          <CardContent className="p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                                {tip.icon}
+                              </div>
+                              <h3 className="font-semibold text-card-foreground">{tip.title}</h3>
+                            </div>
+                            <p className="text-muted-foreground leading-relaxed">{tip.tip}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+
+                    <div className="text-center mt-12">
+                      <Button 
+                        variant="outline"
+                        className="rounded-xl px-8 py-3 border-2 hover:bg-accent/50"
+                      >
+                        <Lightbulb className="w-4 h-4 mr-2" />
+                        More Cooking Tips
+                      </Button>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+                </section>
+
+                {/* Community Highlights Section */}
+                <section className="section-padding bg-background">
+                  <div className="container">
+                    <div className="text-center mb-12">
+                      <h2 className="text-3xl font-bold text-foreground mb-4">Community Highlights</h2>
+                      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                        Celebrating our amazing community of food lovers and talented home chefs
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      {communityHighlights.map((highlight, index) => (
+                        <Card key={index} className="border-0 shadow-card hover:shadow-card-hover transition-all duration-300 bg-card">
+                          <CardHeader className="pb-3">
+                            <div className="flex items-center gap-2">
+                              {highlight.badge}
+                              <CardTitle className="text-sm font-medium text-muted-foreground">
+                                {highlight.title}
+                              </CardTitle>
+                            </div>
+                          </CardHeader>
+                          <CardContent className="pt-0">
+                            {highlight.type === 'chef-of-month' && (
+                              <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                  <Avatar className="w-12 h-12">
+                                    <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                                      {highlight.avatar}
+                                    </AvatarFallback>
+                                  </Avatar>
+                                  <div>
+                                    <p className="font-semibold text-card-foreground">{highlight.name}</p>
+                                    <p className="text-sm text-muted-foreground">{highlight.achievement}</p>
+                                  </div>
+                                </div>
+                                <div className="flex justify-between text-sm text-muted-foreground">
+                                  <span>{highlight.recipes} recipes</span>
+                                  <span>{highlight.followers} followers</span>
+                                </div>
+                              </div>
+                            )}
+
+                            {highlight.type === 'trending-recipe' && (
+                              <div className="space-y-2">
+                                <h3 className="font-semibold text-card-foreground">{highlight.name}</h3>
+                                <p className="text-sm text-muted-foreground">by {highlight.author}</p>
+                                <div className="flex justify-between text-sm text-muted-foreground">
+                                  <span>❤️ {highlight.likes}</span>
+                                  <span>💬 {highlight.comments}</span>
+                                  <span>📤 {highlight.shares}</span>
+                                </div>
+                              </div>
+                            )}
+
+                            {highlight.type === 'community-challenge' && (
+                              <div className="space-y-2">
+                                <h3 className="font-semibold text-card-foreground">{highlight.name}</h3>
+                                <div className="space-y-1 text-sm text-muted-foreground">
+                                  <p>{highlight.participants} participants</p>
+                                  <p>{highlight.submissions} submissions</p>
+                                  <p className="text-orange-500 font-medium">{highlight.timeLeft}</p>
+                                </div>
+                              </div>
+                            )}
+
+                            {highlight.type === 'recent-review' && (
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-1">
+                                  {Array.from({ length: highlight.rating }, (_, i) => (
+                                    <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                                  ))}
+                                </div>
+                                <h3 className="font-semibold text-card-foreground text-sm">{highlight.recipe}</h3>
+                                <p className="text-xs text-muted-foreground">by {highlight.reviewer}</p>
+                                <p className="text-sm text-muted-foreground line-clamp-2">"{highlight.comment}"</p>
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+
+                    <div className="text-center mt-12">
+                      <Button 
+                        variant="outline"
+                        className="rounded-xl px-8 py-3 border-2 hover:bg-accent/50"
+                      >
+                        <Users className="w-4 h-4 mr-2" />
+                        Join Our Community
+                      </Button>
+                    </div>
+                  </div>
+                </section>
