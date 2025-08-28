@@ -2,10 +2,10 @@
 
 import React from "react";
 import { Calendar, User, ArrowRight } from "lucide-react";
-import { Card } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { Button } from "../components/ui/button";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Card } from "../components/card";
+import { Badge } from "../components/badge";
+import { Button } from "../components/button";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 
 export function BlogPage({ onViewBlog }) {
   const blogPosts = [

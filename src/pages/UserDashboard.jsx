@@ -9,17 +9,12 @@ import {
   Award,
   TrendingUp,
 } from "lucide-react";
-import { Card } from "../components/ui/card";
-import { Button } from "../components/ui/button";
-import { Badge } from "../components/ui/badge";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/ui/tabs";
+import { Card } from "../components/card";
+import { Button } from "../components/button";
+import { Badge } from "../components/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/tabs";
 import { RecipeCard } from "../components/RecipeCard";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 import React from "react";
 
 export function UserDashboard({ onViewRecipe }) {

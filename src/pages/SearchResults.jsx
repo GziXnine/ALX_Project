@@ -1,11 +1,11 @@
 /** @format */
 
 import { Search, Filter, SlidersHorizontal } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Card } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { RecipeCard } from "./RecipeCard";
+import { Button } from "../components/button";
+import { Input } from "../components/input";
+import { Card } from "../components/card";
+import { Badge } from "../components/badge";
+import { RecipeCard } from "../components/RecipeCard";
 import { useState, useEffect } from "react";
 import React from "react";
 

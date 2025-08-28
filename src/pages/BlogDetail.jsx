@@ -2,10 +2,10 @@
 
 import React from "react";
 import { ArrowLeft, Calendar, User, Clock, Share2, Heart } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Badge } from "../components/ui/badge";
-import { Card } from "../components/ui/card";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Button } from "../components/button";
+import { Badge } from "../components/badge";
+import { Card } from "../components/card";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 
 export function BlogDetail({ blogId, onBack }) {
   // Mock blog post data

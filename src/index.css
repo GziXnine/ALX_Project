@@ -1045,6 +1045,10 @@
     display: inline-flex;
   }
 
+  .flex {
+    display: flex;
+  }
+
   .table {
     display: table;
   }
@@ -1292,7 +1296,7 @@
   }
 
   .min-h-screen {
-    min-height: 100vh;
+    min-height: calc(100vh - 65px);
   }
 
   .min-h-svh {

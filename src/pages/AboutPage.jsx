@@ -1,8 +1,8 @@
 /** @format */
 
 import { Users, Award, Globe, Heart } from "lucide-react";
-import { Card } from "../components/ui/card";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Card } from "../components/card";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 
 export function AboutPage() {
   const teamMembers = [

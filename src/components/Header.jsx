@@ -3,7 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import { Menu, X, Sun, Moon, ChevronDown, Flower } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "./button";
 
 export function Header({
   currentPage = "home",

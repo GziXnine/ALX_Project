@@ -10,11 +10,11 @@ import {
   Printer,
   ChefHat,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { Separator } from "../components/ui/separator";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Button } from "../components/button";
+import { Card } from "../components/card";
+import { Badge } from "../components/badge";
+import { Separator } from "../components/separator";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useState } from "react";
 import React from "react";
 

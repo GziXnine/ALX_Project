@@ -10,14 +10,48 @@ import {
   Heart,
   TrendingUp,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Input } from "../components/ui/input";
+import { useEffect } from "react";
+import { Button } from "../components/button";
+import { Card } from "../components/card";
+import { Input } from "../components/input";
 import { RecipeCard } from "../components/RecipeCard";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useState } from "react";
 
 export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
+  // Animated stats
+  const stats = [
+    { label: "Recipes", value: 22343, icon: BookOpen },
+    { label: "Chefs", value: 94, icon: ChefHat },
+    { label: "Countries", value: 53, icon: TrendingUp },
+    { label: "Happy Cooks", value: 176743, icon: Heart },
+  ];
+
+  const [counts, setCounts] = useState(stats.map(() => 0));
+
+  useEffect(() => {
+    const durations = [1200, 1000, 800, 1500]; // ms for each stat
+    const intervals = stats.map((stat, i) => {
+      const step = Math.ceil(stat.value / (durations[i] / 20));
+      return setInterval(() => {
+        setCounts((prev) => {
+          const next = [...prev];
+          if (next[i] < stat.value) {
+            next[i] = Math.min(stat.value, next[i] + step);
+          }
+          return next;
+        });
+      }, 20);
+    });
+    const timeout = setTimeout(() => {
+      intervals.forEach(clearInterval);
+      setCounts(stats.map((s) => s.value));
+    }, Math.max(...durations) + 100);
+    return () => {
+      intervals.forEach(clearInterval);
+      clearTimeout(timeout);
+    };
+  }, []);
   const [searchQuery, setSearchQuery] = useState("");
 
   const featuredRecipes = [
@@ -181,18 +215,17 @@ export function LandingPage({ onSearch, onViewRecipe, onShowAIModal }) {
 
           {/* Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {[
-              { label: "Recipes", value: "10,000+", icon: BookOpen },
-              { label: "Chefs", value: "500+", icon: ChefHat },
-              { label: "Countries", value: "50+", icon: TrendingUp },
-              { label: "Happy Cooks", value: "100K+", icon: Heart },
-            ].map((stat, index) => (
+            {stats.map((stat, index) => (
               <div key={stat.label} className="text-center">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 text-primary rounded-xl mb-3">
                   <stat.icon className="w-6 h-6" />
                 </div>
                 <div className="text-2xl font-bold text-foreground">
-                  {stat.value}
+                  {stat.label === "Recipes"
+                    ? `${counts[index].toLocaleString()}+`
+                    : stat.label === "Happy Cooks"
+                    ? `${Math.floor(counts[index] / 1000)}K+`
+                    : `${counts[index]}+`}
                 </div>
                 <div className="text-sm text-muted-foreground">
                   {stat.label}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { LandingPage } from "./pages/LandingPage";
-import { SearchResults } from "./components/SearchResults";
+import { SearchResults } from "./pages/SearchResults";
 import { RecipeDetails } from "./pages/RecipeDetails";
 import { AboutPage } from "./pages/AboutPage";
 import { BlogPage } from "./pages/BlogPage";

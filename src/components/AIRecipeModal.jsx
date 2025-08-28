@@ -11,11 +11,11 @@ import {
   Users,
   Star,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Badge } from "../components/ui/badge";
-import { Card } from "../components/ui/card";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Badge } from "./badge";
+import { Card } from "./card";
+import { ImageWithFallback } from "./ImageWithFallback";
 
 export default function AIRecipeModal({ onClose, onViewRecipe }) {
   const [ingredients, setIngredients] = useState([""]);

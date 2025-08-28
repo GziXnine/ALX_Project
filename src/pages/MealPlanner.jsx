@@ -12,10 +12,10 @@ import {
   ShoppingCart,
   Download,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Button } from "../components/button";
+import { Card } from "../components/card";
+import { Badge } from "../components/badge";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 import React from "react";
 
 export function MealPlanner({ onViewRecipe }) {
