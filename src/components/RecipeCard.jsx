@@ -33,90 +33,49 @@ export function RecipeCard({
   const description = recipe.strInstructions
     ? recipe.strInstructions.split(".")[0] + "."
     : recipe.description;
-  const difficulty = recipe.difficulty || "Medium";
-  const rating = recipe.rating || 4.5;
-  const cookTime = recipe.cookTime || "20 mins";
-  const servings = recipe.servings || 3;
   const id = recipe.idMeal || recipe.id;
 
   return (
     <Card
-      className={`${sizeClasses[size]} h-full flex flex-col overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1`}
+      className={`${sizeClasses[size]} h-full flex flex-col overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1 font-sans text-[0.75rem] sm:text-base md:text-[1.05rem] lg:text-base`}
     >
       <div className="relative">
         <ImageWithFallback
           src={image}
           alt={title}
-          className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-xl"
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        {/* Difficulty Badge */}
-        <div className="absolute top-3 left-3">
-          <Badge
-            className={`${difficultyColors[difficulty]} text-xs font-semibold shadow-sm`}
-          >
-            {difficulty}
-          </Badge>
-        </div>
-        {/* Rating */}
-        <div className="absolute top-3 right-3 bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1.5 text-sm font-medium shadow-sm">
-          <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-          <span>{rating}</span>
-        </div>
-        {/* Chef Info - Shows on hover */}
-        {recipe.chef && (
-          <div className="absolute bottom-3 left-3 bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Chef {recipe.chef}
-          </div>
-        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
       </div>
-      <div className="px-6 pb-6">
-        {/* Category & Trending */}
-        <div className="flex items-center justify-between mb-3">
-          <Badge
-            variant="secondary"
-            className="text-xs font-medium bg-primary/10 text-primary border-0"
-          >
-            {category}
-          </Badge>
-          {recipe.trending && (
-            <Badge className="text-xs font-medium bg-orange-100 text-orange-600 border-0">
-              🔥 Trending
-            </Badge>
-          )}
-        </div>
+      <div className="px-6 pb-6 flex flex-col flex-1">
+        {/* Category */}
+        <Badge
+          variant="secondary"
+          className="text-[0.6rem] sm:text-xs md:text-sm font-semibold bg-primary/10 text-primary border-0 mb-2 mt-4"
+        >
+          {category}
+        </Badge>
         {/* Title */}
-        <h3 className="font-bold text-lg text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+            <h3 className="font-bold text-[18px] text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors tracking-tight">
           {title}
         </h3>
         {/* Description */}
         {description && (
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
+          <p className="text-[0.75rem] sm:text-base md:text-[1.05rem] lg:text-base text-muted-foreground mb-4 line-clamp-2 leading-relaxed font-normal">
             {description}
           </p>
         )}
-        {/* Recipe Meta */}
-        <div className="grid grid-cols-3 gap-2 text-sm text-muted-foreground mb-6">
-          <div className="flex flex-col items-center text-center">
-            <Clock className="w-4 h-4 mb-1 text-primary" />
-            <span className="font-medium text-xs">{cookTime}</span>
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <Users className="w-4 h-4 mb-1 text-primary" />
-            <span className="font-medium text-xs">{servings} servings</span>
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <div className="w-4 h-4 mb-1 flex items-center justify-center">
-              <span className="text-xs font-bold text-primary">🌍</span>
-            </div>
-            <span className="font-medium text-xs">{cuisine}</span>
-          </div>
+        {/* Cuisine */}
+        <div className="flex items-center gap-2 mt-auto">
+          <span className="inline-block px-2 py-1 bg-accent text-xs rounded font-medium text-primary/80">
+            {cuisine}
+          </span>
         </div>
         {/* Action Button */}
         <Button
           onClick={() => onViewRecipe(id)}
-          className="w-full font-semibold py-2.5 rounded-xl group-hover:bg-primary/90 transition-colors"
+          className="w-full font-semibold py-2.5 rounded-xl group-hover:bg-primary/90 transition-colors mt-4 text-base"
           variant="default"
         >
           View Recipe

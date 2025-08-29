@@ -1407,6 +1407,14 @@
     width: fit-content;
   }
 
+  .lg\:w-mid {
+    width: 50%;
+  }
+
+  .sm\:w-full {
+    width: 100%;
+  }
+
   .w-full {
     width: 100%;
   }
@@ -1748,9 +1756,13 @@
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
-
+  
   .lg\:gap-5 {
     gap: calc(var(--spacing) * 5);
+  }
+  
+  .sm\:gap-3 {
+    gap: calc(var(--spacing) * 3);
   }
 
   .lg\:gap-10 {
@@ -6675,4 +6687,19 @@
   50% {
     opacity: 0;
   }
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #fff;
+}
+.thin-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: #fff;
 }
